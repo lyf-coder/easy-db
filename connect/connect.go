@@ -7,11 +7,12 @@
 
 package connect // import "github.com/lyf-coder/easy-db/connect"
 
-const MONGODB  = "MONGODB"
+// MONGODB
+const MONGODB = "MONGODB"
 
 // Config is connect database config struct
 type Config struct {
-	DbType string
+	DbType       string
 	UserName     string
 	Password     string
 	DatabaseName string

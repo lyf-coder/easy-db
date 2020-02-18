@@ -15,16 +15,17 @@ import (
 	"github.com/lyf-coder/easy-db/result"
 	"github.com/lyf-coder/entity"
 )
+
 // store Db - databaseName is key
 var dbMap = make(map[string]Db)
 
 // New Db by config
-func New(config *connect.Config) Db{
+func New(config *connect.Config) Db {
 	var db Db
 	// first find db in dbMap by DatabaseName
 	db = dbMap[config.DatabaseName]
 	// find
-	if db!=nil{
+	if db != nil {
 		return db
 	}
 	// not find in dbMap - New
@@ -37,43 +38,43 @@ func New(config *connect.Config) Db{
 	return db
 }
 
-// Db
+// Db is databases access interface
 type Db interface {
 	// Close Db connect
 	Close(ctx context.Context) error
 
 	// Insert return id
-	Insert(ctx context.Context,collectionName string,doc interface{}) (string,error)
+	Insert(ctx context.Context, collectionName string, doc interface{}) (string, error)
 	// InsertWithOptions return id
-	InsertWithOptions(ctx context.Context,collectionName string,doc interface{},opts *options.InsertOpts) (string,error)
+	InsertWithOptions(ctx context.Context, collectionName string, doc interface{}, opts *options.InsertOpts) (string, error)
 
 	// Inserts return ids
-	Inserts(ctx context.Context,collectionName string,docs []interface{}) ([]string,error)
+	Inserts(ctx context.Context, collectionName string, docs []interface{}) ([]string, error)
 	// InsertsWithOptions return ids
-	InsertsWithOptions(ctx context.Context,collectionName string,docs []interface{} , opts *options.InsertOpts) ([]string,error)
+	InsertsWithOptions(ctx context.Context, collectionName string, docs []interface{}, opts *options.InsertOpts) ([]string, error)
 
 	// Find return Entity
-	Find(ctx context.Context,collectionName string, filter interface{}, opts options.FindOpts) (*entity.Entity,error)
+	Find(ctx context.Context, collectionName string, filter interface{}, opts options.FindOpts) (*entity.Entity, error)
 	// Find return []Entity
-	Finds(ctx context.Context,collectionName string, filter interface{}, opts options.FindOpts) ([]*entity.Entity,error)
+	Finds(ctx context.Context, collectionName string, filter interface{}, opts options.FindOpts) ([]*entity.Entity, error)
 
 	// Update just update at most one document in the collection and return *result.UpdateResult,error
-	Update(ctx context.Context,collectionName string,filter interface{}, update interface{})(*result.UpdateResult,error)
+	Update(ctx context.Context, collectionName string, filter interface{}, update interface{}) (*result.UpdateResult, error)
 	// UpdateWithOptions just update at most one document in the collection and return *result.UpdateResult,error
-	UpdateWithOptions(ctx context.Context,collectionName string,filter interface{}, update interface{}, opts options.UpdateOpts)(*result.UpdateResult,error)
+	UpdateWithOptions(ctx context.Context, collectionName string, filter interface{}, update interface{}, opts options.UpdateOpts) (*result.UpdateResult, error)
 
 	// Updates return *result.UpdateResult,error
-	Updates(ctx context.Context,collectionName string,filter interface{}, update interface{}) (*result.UpdateResult,error)
+	Updates(ctx context.Context, collectionName string, filter interface{}, update interface{}) (*result.UpdateResult, error)
 	// UpdatesWithOptions return *result.UpdateResult,error
-	UpdatesWithOptions(ctx context.Context,collectionName string,filter interface{}, update interface{},opts options.UpdateOpts) (*result.UpdateResult,error)
+	UpdatesWithOptions(ctx context.Context, collectionName string, filter interface{}, update interface{}, opts options.UpdateOpts) (*result.UpdateResult, error)
 
 	//Delete at most one document from the collection.  return DeleteResult,error
-	Delete(ctx context.Context,collectionName string,filter interface{}) (*result.DeleteResult,error)
+	Delete(ctx context.Context, collectionName string, filter interface{}) (*result.DeleteResult, error)
 	//DeleteWithOptions at most one document from the collection.  return DeleteResult,error
-	DeleteWithOptions(ctx context.Context,collectionName string,filter interface{},opts options.DeleteOpts) (*result.DeleteResult,error)
+	DeleteWithOptions(ctx context.Context, collectionName string, filter interface{}, opts options.DeleteOpts) (*result.DeleteResult, error)
 
 	// Deletes return *result.DeleteResult,error
-	Deletes(ctx context.Context,collectionName string,filter interface{}) (*result.DeleteResult,error)
+	Deletes(ctx context.Context, collectionName string, filter interface{}) (*result.DeleteResult, error)
 	// DeletesWithOptions return *result.DeleteResult,error
-	DeletesWithOptions(ctx context.Context,collectionName string,filter interface{},opts options.DeleteOpts) (*result.DeleteResult,error)
+	DeletesWithOptions(ctx context.Context, collectionName string, filter interface{}, opts options.DeleteOpts) (*result.DeleteResult, error)
 }

@@ -30,6 +30,7 @@ func Test_getUri(t *testing.T) {
 		t.Errorf("actual value is \"%v\"", uri)
 	}
 }
+
 /** if you need test the following func, you need modify config value first,
 and then delete this annotation block
 
@@ -124,4 +125,4 @@ func TestMongodb_Deletes(t *testing.T) {
 }
 
 
- */
+*/

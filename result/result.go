@@ -12,6 +12,7 @@ import mongoDriver "go.mongodb.org/mongo-driver/mongo"
 type UpdateResult struct {
 	mongoDriver.UpdateResult
 }
+
 // DeleteResult Db Delete result struct
 type DeleteResult struct {
 	mongoDriver.DeleteResult
