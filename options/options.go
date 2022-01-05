@@ -6,7 +6,9 @@
  */
 
 package options // import "github.com/lyf-coder/easy-db/options"
-import "go.mongodb.org/mongo-driver/mongo/options"
+import (
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
 
 // InsertOpts represents all possible options to the InsertWithOptions and InsertsWithOptions function.
 type InsertOpts struct {
@@ -26,4 +28,9 @@ type UpdateOpts struct {
 // DeleteOpts represents all possible options to the DeleteWithOptions() and DeletesWithOptions() functions.
 type DeleteOpts struct {
 	options.DeleteOptions
+}
+
+// CountOpts represents all possible options to the CountWithOptions() function.
+type CountOpts struct {
+	options.CountOptions
 }
