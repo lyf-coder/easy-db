@@ -8,12 +8,7 @@
 package db
 
 import (
-	"context"
 	"github.com/lyf-coder/easy-db/connect"
-	"github.com/lyf-coder/easy-db/options"
-	"log"
-	"testing"
-	"time"
 )
 
 /** if you need test the following func, you need modify config value first,
@@ -31,37 +26,38 @@ var config = connect.Config{
 
 var db = New(&config)
 
-func Test_New(t *testing.T) {
-	const COLLECTION = "GO_TEST"
-	// test Insert
-	doc := map[string]string{}
-	doc["name"] = "jack"
-	doc["say"] = "hi!rose!"
-	ctx, cancelFunc := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancelFunc()
-	id, err := db.Insert(ctx, COLLECTION, doc)
-	if err != nil {
-		t.Error(err)
-		t.Error(id)
-	}
-
-	// test Finds
-	filter := make(map[string]interface{})
-
-	results, err := db.Finds(ctx, COLLECTION, filter, options.FindOpts{})
-	if err != nil {
-		t.Error(err)
-	}
-	for _, val := range results {
-		log.Println(val.Get("name"))
-	}
-
-	deleteFilter := map[string]string{}
-	deleteFilter["name"] = "pi_test"
-
-	result, err := db.Delete(ctx, COLLECTION, deleteFilter)
-	if err != nil {
-		t.Error(err)
-		t.Error(result)
-	}
-}
+//
+//func Test_New(t *testing.T) {
+//	const COLLECTION = "GO_TEST"
+//	// test Insert
+//	doc := map[string]string{}
+//	doc["name"] = "jack"
+//	doc["say"] = "hi!rose!"
+//	ctx, cancelFunc := context.WithTimeout(context.Background(), 1*time.Second)
+//	defer cancelFunc()
+//	id, err := db.Insert(ctx, COLLECTION, doc)
+//	if err != nil {
+//		t.Error(err)
+//		t.Error(id)
+//	}
+//
+//	// test Finds
+//	filter := make(map[string]interface{})
+//
+//	results, err := db.Finds(ctx, COLLECTION, filter, options.FindOpts{})
+//	if err != nil {
+//		t.Error(err)
+//	}
+//	for _, val := range results {
+//		log.Println(val.Get("name"))
+//	}
+//
+//	deleteFilter := map[string]string{}
+//	deleteFilter["name"] = "pi_test"
+//
+//	result, err := db.Delete(ctx, COLLECTION, deleteFilter)
+//	if err != nil {
+//		t.Error(err)
+//		t.Error(result)
+//	}
+//}
