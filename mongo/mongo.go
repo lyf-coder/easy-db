@@ -99,9 +99,12 @@ func (mongodb Mongodb) Find(ctx context.Context, collectionName string, filter i
 	opts.SetLimit(-1)
 	findsResult, err := mongodb.Finds(ctx, collectionName, filter, opts)
 	if err != nil {
-		return new(entity.Entity), err
+		return nil, err
 	}
-	return findsResult[0], err
+	if len(findsResult) > 0 {
+		return findsResult[0], err
+	}
+	return nil, err
 }
 
 // Finds return []Entity,error
