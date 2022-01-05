@@ -23,8 +23,8 @@ import (
 
 // Mongodb is mongo database's struct
 type Mongodb struct {
-	client *mongo.Client
-	config *connect.Config
+	Client *mongo.Client
+	Config *connect.Config
 }
 
 // Insert return (insert ID) string,error  if error,return will be ""
@@ -48,7 +48,7 @@ func (mongodb Mongodb) InsertWithOptions(ctx context.Context, collectionName str
 // Inserts return (insert IDs) []string,error
 func (mongodb Mongodb) Inserts(ctx context.Context, collectionName string, docs []interface{}) ([]string, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 	// insert doc to collection
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -72,7 +72,7 @@ func (mongodb Mongodb) Inserts(ctx context.Context, collectionName string, docs 
 // InsertsWithOptions return (insert IDs) []string,error
 func (mongodb Mongodb) InsertsWithOptions(ctx context.Context, collectionName string, docs []interface{}, opts *easyOptions.InsertOpts) ([]string, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 	// insert doc to collection
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -107,7 +107,7 @@ func (mongodb Mongodb) Find(ctx context.Context, collectionName string, filter i
 // Finds return []Entity,error
 func (mongodb Mongodb) Finds(ctx context.Context, collectionName string, filter interface{}, opts easyOptions.FindOpts) ([]*entity.Entity, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -145,7 +145,7 @@ func (mongodb Mongodb) Finds(ctx context.Context, collectionName string, filter 
 // Update just update at most one document in the collection and return *result.UpdateResult,error
 func (mongodb Mongodb) Update(ctx context.Context, collectionName string, filter interface{}, update interface{}) (*result.UpdateResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -166,7 +166,7 @@ func (mongodb Mongodb) Update(ctx context.Context, collectionName string, filter
 // UpdateWithOptions just update at most one document in the collection and return *result.UpdateResult,error
 func (mongodb Mongodb) UpdateWithOptions(ctx context.Context, collectionName string, filter interface{}, update interface{}, opts easyOptions.UpdateOpts) (*result.UpdateResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -187,7 +187,7 @@ func (mongodb Mongodb) UpdateWithOptions(ctx context.Context, collectionName str
 // Updates return *result.UpdateResult,error
 func (mongodb Mongodb) Updates(ctx context.Context, collectionName string, filter interface{}, update interface{}) (*result.UpdateResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -208,7 +208,7 @@ func (mongodb Mongodb) Updates(ctx context.Context, collectionName string, filte
 // UpdatesWithOptions return *result.UpdateResult,error
 func (mongodb Mongodb) UpdatesWithOptions(ctx context.Context, collectionName string, filter interface{}, update interface{}, opts easyOptions.UpdateOpts) (*result.UpdateResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -229,7 +229,7 @@ func (mongodb Mongodb) UpdatesWithOptions(ctx context.Context, collectionName st
 //Delete at most one document from the collection.  return DeleteResult,error
 func (mongodb Mongodb) Delete(ctx context.Context, collectionName string, filter interface{}) (*result.DeleteResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -250,7 +250,7 @@ func (mongodb Mongodb) Delete(ctx context.Context, collectionName string, filter
 //DeleteWithOptions at most one document from the collection.  return DeleteResult,error
 func (mongodb Mongodb) DeleteWithOptions(ctx context.Context, collectionName string, filter interface{}, opts easyOptions.DeleteOpts) (*result.DeleteResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -271,7 +271,7 @@ func (mongodb Mongodb) DeleteWithOptions(ctx context.Context, collectionName str
 // Deletes return *result.DeleteResult,error
 func (mongodb Mongodb) Deletes(ctx context.Context, collectionName string, filter interface{}) (*result.DeleteResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -292,7 +292,7 @@ func (mongodb Mongodb) Deletes(ctx context.Context, collectionName string, filte
 // DeletesWithOptions return *result.DeleteResult,error
 func (mongodb Mongodb) DeletesWithOptions(ctx context.Context, collectionName string, filter interface{}, opts easyOptions.DeleteOpts) (*result.DeleteResult, error) {
 	// collectionName's collection
-	collection := mongodb.client.Database(mongodb.config.DatabaseName).Collection(collectionName)
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
 
 	if ctx == nil {
 		var cancelFunc context.CancelFunc
@@ -310,9 +310,27 @@ func (mongodb Mongodb) DeletesWithOptions(ctx context.Context, collectionName st
 	return &deleteResult, err
 }
 
+// CountWithOptions return int64,error
+func (mongodb Mongodb) CountWithOptions(ctx context.Context, collectionName string, filter interface{}, opts easyOptions.CountOpts) (int64, error) {
+	// collectionName's collection
+	collection := mongodb.Client.Database(mongodb.Config.DatabaseName).Collection(collectionName)
+
+	if ctx == nil {
+		var cancelFunc context.CancelFunc
+		ctx, cancelFunc = context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancelFunc()
+	}
+
+	val, err := collection.CountDocuments(ctx, filter, &opts.CountOptions)
+	if err != nil {
+		log.Println(err)
+	}
+	return val, err
+}
+
 // Close Db connect
 func (mongodb Mongodb) Close(ctx context.Context) error {
-	err := mongodb.client.Disconnect(ctx)
+	err := mongodb.Client.Disconnect(ctx)
 	if err != nil {
 		log.Println(err)
 	}
@@ -356,7 +374,7 @@ func New(config *connect.Config) *Mongodb {
 	if err != nil {
 		log.Println(err)
 	}
-	mongodb := Mongodb{client: client, config: config}
+	mongodb := Mongodb{Client: client, Config: config}
 	return &mongodb
 }
 

@@ -50,21 +50,20 @@ func TestNew(t *testing.T) {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
 	err := mongodb.client.Ping(ctx, readpref.Primary())
-	if err != nil{
+	if err != nil {
 		t.Error(err)
 	}
 }
-
 
 func TestMongodb_Finds(t *testing.T) {
 	filter := make(map[string]interface{})
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	results,err := mongodb.Finds(ctx,"GO_TEST", filter, options.FindOpts{})
-	if err!=nil{
+	results, err := mongodb.Finds(ctx, "GO_TEST", filter, options.FindOpts{})
+	if err != nil {
 		t.Error(err)
 	}
-	for _,val := range results{
+	for _, val := range results {
 		log.Println(val.Get("name"))
 	}
 
@@ -79,14 +78,14 @@ func TestMongodb_Updates(t *testing.T) {
 	//	}},
 	//}
 	newUpdate := entity.Entity{}
-	newUpdate.Set("$set:value","999")
+	newUpdate.Set("$set:value", "999")
 
 	updateOpts := options.UpdateOpts{}
 	updateOpts.SetUpsert(true)
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	result,err := mongodb.UpdatesWithOptions(ctx,"GO_TEST", filter, newUpdate.GetData(), updateOpts)
-	if err!=nil{
+	result, err := mongodb.UpdatesWithOptions(ctx, "GO_TEST", filter, newUpdate.GetData(), updateOpts)
+	if err != nil {
 		t.Error(err)
 		t.Error(result)
 	}
@@ -107,12 +106,11 @@ func TestMongodb_Deletes(t *testing.T) {
 	filter := make(map[string]interface{})
 	filter["name"] = "pi_test2"
 
-
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
 	//result,err := mongodb.Deletes("GO_TEST", filter)
-	result,err := mongodb.Deletes(ctx,"GO_TEST", filter)
-	if err!=nil{
+	result, err := mongodb.Deletes(ctx, "GO_TEST", filter)
+	if err != nil {
 		t.Error(err)
 	}
 	log.Println(result.DeletedCount)
@@ -125,4 +123,28 @@ func TestMongodb_Deletes(t *testing.T) {
 }
 
 
+func TestMongodb_CountWithOptions(t *testing.T) {
+	defer func() {
+		if err := mongodb.Close(context.TODO()); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	filter := make(map[string]interface{})
+	filter["DICT_KEY"] = "k_vip"
+
+	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancelFunc()
+	result, err := mongodb.CountWithOptions(ctx, "BOT_DICT", filter, options.CountOpts{})
+	if err != nil {
+		t.Error(err)
+	}
+	log.Println(result)
+	//if err!=nil{
+	//	t.Error(err)
+	//}
+	//for _,val := range results{
+	//	log.Println(val.Get("name"))
+	//}
+}
 */

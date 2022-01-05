@@ -77,4 +77,7 @@ type Db interface {
 	Deletes(ctx context.Context, collectionName string, filter interface{}) (*result.DeleteResult, error)
 	// DeletesWithOptions return *result.DeleteResult,error
 	DeletesWithOptions(ctx context.Context, collectionName string, filter interface{}, opts options.DeleteOpts) (*result.DeleteResult, error)
+
+	// CountWithOptions return int64,error
+	CountWithOptions(ctx context.Context, collectionName string, filter interface{}, opts options.CountOpts) (int64, error)
 }
