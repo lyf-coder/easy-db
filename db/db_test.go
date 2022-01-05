@@ -7,24 +7,20 @@
 
 package db
 
-import (
-	"github.com/lyf-coder/easy-db/connect"
-)
-
 /** if you need test the following func, you need modify config value first,
 and then delete this annotation block */
 
-var config = connect.Config{
-	DbType:       "DbType",
-	UserName:     "UserName",
-	Password:     "Password",
-	DatabaseName: "DatabaseName",
-	Host:         "ip",
-	Port:         "27017",
-	Options:      nil,
-}
+//var config = connect.Config{
+//	DbType:       "DbType",
+//	UserName:     "UserName",
+//	Password:     "Password",
+//	DatabaseName: "DatabaseName",
+//	Host:         "ip",
+//	Port:         "27017",
+//	Options:      nil,
+//}
 
-var db = New(&config)
+//var db = New(&config)
 
 //
 //func Test_New(t *testing.T) {
