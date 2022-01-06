@@ -15,8 +15,11 @@ TEST_FORMAT = short-verbose
 endif
 
 # Dependency versions
-GOTESTSUM_VERSION = 0.4.0
-GOLANGCI_VERSION = 1.21.0
+# go install gotest.tools/gotestsum@latest
+GOTESTSUM_VERSION = 1.7.0
+# go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.43.0
+# go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+GOLANGCI_VERSION = 1.42.1
 
 # Add the ability to override some variables
 # Use with care
@@ -48,7 +51,7 @@ bin/golangci-lint: bin/golangci-lint-${GOLANGCI_VERSION}
 	@ln -sf golangci-lint-${GOLANGCI_VERSION} bin/golangci-lint
 bin/golangci-lint-${GOLANGCI_VERSION}:
 	@mkdir -p bin
-	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b ./bin/ v${GOLANGCI_VERSION}
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b ./bin/ ${GOLANGCI_VERSION}
 	@mv bin/golangci-lint $@
 
 .PHONY: lint

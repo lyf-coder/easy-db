@@ -10,6 +10,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// InsertOneOpts
+type InsertOneOpts struct {
+	options.InsertOneOptions
+}
+
 // InsertOpts represents all possible options to the InsertWithOptions and InsertsWithOptions function.
 type InsertOpts struct {
 	options.InsertManyOptions
