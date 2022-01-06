@@ -33,23 +33,25 @@ func Test_getUri(t *testing.T) {
 
 /** if you need test the following func, you need modify config value first,
 and then delete this annotation block
+*/
+//var config = connect.Config{
+//	DbType:       "DbType",
+//	UserName:     "UserName",
+//	Password:     "Password",
+//	DatabaseName: "DatabaseName",
+//	Host:         "ip",
+//	Port:         "27017",
+//	Options:      nil,
+//}
 
-var config = connect.Config{
-	DbType:       "DbType",
-	UserName:     "UserName",
-	Password:     "Password",
-	DatabaseName: "DatabaseName",
-	Host:         "ip",
-	Port:         "27017",
-	Options:      nil,
-}
-var mongodb = New(&config)
+//var mongodb = New(&config)
 
+/**
 // New Test
 func TestNew(t *testing.T) {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	err := mongodb.client.Ping(ctx, readpref.Primary())
+	err := mongodb.Client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		t.Error(err)
 	}
@@ -59,7 +61,7 @@ func TestMongodb_Finds(t *testing.T) {
 	filter := make(map[string]interface{})
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	results, err := mongodb.Finds(ctx, "GO_TEST", filter, options.FindOpts{})
+	results, err := mongodb.Finds(ctx, "GO_TEST", filter, nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -84,7 +86,7 @@ func TestMongodb_Updates(t *testing.T) {
 	updateOpts.SetUpsert(true)
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	result, err := mongodb.UpdatesWithOptions(ctx, "GO_TEST", filter, newUpdate.GetData(), updateOpts)
+	result, err := mongodb.Updates(ctx, "GO_TEST", filter, newUpdate.GetData(), &updateOpts)
 	if err != nil {
 		t.Error(err)
 		t.Error(result)
@@ -109,7 +111,7 @@ func TestMongodb_Deletes(t *testing.T) {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
 	//result,err := mongodb.Deletes("GO_TEST", filter)
-	result, err := mongodb.Deletes(ctx, "GO_TEST", filter)
+	result, err := mongodb.Deletes(ctx, "GO_TEST", filter, nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -122,8 +124,7 @@ func TestMongodb_Deletes(t *testing.T) {
 	//}
 }
 
-
-func TestMongodb_CountWithOptions(t *testing.T) {
+func TestMongodb_Count(t *testing.T) {
 	defer func() {
 		if err := mongodb.Close(context.TODO()); err != nil {
 			log.Fatal(err)
@@ -135,7 +136,7 @@ func TestMongodb_CountWithOptions(t *testing.T) {
 
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancelFunc()
-	result, err := mongodb.CountWithOptions(ctx, "BOT_DICT", filter, options.CountOpts{})
+	result, err := mongodb.Count(ctx, "BOT_DICT", filter, nil)
 	if err != nil {
 		t.Error(err)
 	}
